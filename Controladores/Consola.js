@@ -8,13 +8,11 @@ textarea =document.getElementById("consola");
 
 frases=["Ingrese Contraseña:\n","*******\n","Contraseña Aceptada\n",
 "Cargando Archivos.......\n","0%\n","27%\n","65%\n","Archivos Cargados\n"
-,"Conectando con los servidores",".....",".......\n"+
+,"Conectando con los servidores...","","\n"+
 "Conexion Exitosa\n","Concediendo permisos de Administrador....\n",
-"Usuario : 4dm1n1str4t0r : Iniciado\n","Indique un comando:"]
-
+"Usuario : 4dm1n1str4t0r : Iniciado\n\n","Indique un comando y pulse Enter:"]
 
 let contador = 0;
-
 
 const temporizador = setInterval(function() {
   textarea.value += frases[contador]; // Agregar el número al textarea
@@ -25,13 +23,6 @@ const temporizador = setInterval(function() {
     clearInterval(temporizador);
   }
 }, 600);
-
-
-
-
-
-
-
 
 }
 
