@@ -82,24 +82,21 @@ function formatearNumero(numero) {
 
 //Metodo que pilla los jugadores de la bbdd y los muestra
 function listauser() {
-  var xhttp = new XMLHttpRequest();
+   xhttp = new XMLHttpRequest();
   xhttp.open("GET", "http://localhost/SAO/Controladores/listusers.php", true);
 
   xhttp.onload = function() {
       if (this.status == 200) {
           respuesta = this.responseText;
-          console.log(respuesta);
           lineas = respuesta.trim().split("\n");
-          console.log(lineas);
           lineas.splice(0, 1);
-          console.log(lineas);
           jugadores = [];
 
           for (i = 0; i < lineas.length; i++) {
-              var palabras = lineas[i].split(';');
+               palabras = lineas[i].split(';');
 
               player = "\n" + palabras[0] + " " + palabras[1] + " [" + palabras[3] + "] " +
-                  palabras[2] + " (" + palabras[4] + " , " + palabras[5] + ")";
+                  palabras[2] + " (" + palabras[4] + " , " + palabras[5].trim() + ")";
 
               jugadores.push(player);
           }
@@ -115,6 +112,7 @@ function listauser() {
 //Metodo para escribir en la pantalla
 function escribir(frases, cantidad){
 
+  //Bloqueo el input
   document.getElementById("texto").setAttribute("disabled",true);
   textarea =document.getElementById("consola");
 
@@ -122,6 +120,7 @@ function escribir(frases, cantidad){
 let contador = 0;
 
 const temporizador = setInterval(function() {
+  //Pinto lo mandado por parametro
   textarea.value += frases[contador]; 
   console.log(frases[contador]);
   contador++; 
@@ -130,8 +129,11 @@ const temporizador = setInterval(function() {
   // Detener el temporizador 
   if (contador > cantidad) {
    clearInterval(temporizador);
+
+   //Pintar la linea base
    textarea.value+="\n\nIndique un comando y pulse Enter:\n_______________________________________"
    textarea.scrollTop = textarea.scrollHeight;
+   //Desbloquear el input
 document.getElementById("texto").removeAttribute("disabled");
 document.getElementById("texto").focus();
   }
