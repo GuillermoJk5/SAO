@@ -13,17 +13,27 @@ function boton(){
 //Metodo para leer lo que se ha introducido
 function leercomando(comando){
 
-    switch(comando){
+  trozos = comando.split(" ");
+
+    switch(trozos[0]){
+        case "/clear": 
+        clear();
+        break;
         case "/help": 
+        cabecera("HELP");
         help();
         break;
         case "/system_time": 
+        cabecera("DATE");
         time();
         break;
         case "/list_users":
+        cabecera("USERS");
         listauser();
         break;
         case "/profile": 
+        cabecera("PROFILE");
+        profile(trozos[1]);
         break;
         case "/dungeons": 
         break;
@@ -33,14 +43,26 @@ function leercomando(comando){
     }
 }
 
+//Metodo para borrar la consola
+function clear(){
+  textarea=document.getElementById("consola");
+  textarea.value="Indique un comando y pulse Enter:\n_______________________________________";
+   textarea.scrollTop = textarea.scrollHeight;
+}
+
+//Pinta la cabecera de cada comando
+function cabecera(texto){
+  textarea.value+="\n"+texto;
+}
+
 //Metodo para listar los comandos
 function help(){
    
-    frases = ["\n\n/system_time : Muestra la fecha del juego\n\n",
+    frases = ["\n\n/clear : limpia la consola\n\n","/system_time : Muestra la fecha del juego\n\n",
     "/list_users : Lista a los jugadores\n\n",
     "/profile [id_user]: Muestra el perfil del jugador indicado en el parametro"];
 
-    escribir(frases,2);
+    escribir(frases,3);
 }
 
 //Metodo que alerta de un error
@@ -72,6 +94,23 @@ function time(){
    escribir(horaActual,0);
 }
 
+function profile(id){
+
+  fetch(`localhost/SAO/Controladores/profile.php?id_user=${id}`)
+  .then(response => {
+    if (!response.ok) {
+      a=["Error"];
+      escribir(a,0);
+    }
+    return response.json(); 
+  })
+  .then(datos =>{
+
+    console.log(datos);
+
+  })
+}
+
 //Metodo para formatear el numero de la hora
 function formatearNumero(numero) {
   if (numero < 10) {
@@ -95,8 +134,8 @@ function listauser() {
           for (i = 0; i < lineas.length; i++) {
                palabras = lineas[i].split(';');
 
-              player = "\n" + palabras[0] + " " + palabras[1] + " [" + palabras[3] + "] " +
-                  palabras[2] + " (" + palabras[4] + " , " + palabras[5].trim() + ")";
+              player = "\n\n" + palabras[0] + " : " + palabras[1] + " (" + palabras[3] + ") (" +
+                 palabras[2] + ") (" + palabras[4] + " , " + palabras[5].trim() + ")";
 
               jugadores.push(player);
           }
@@ -131,7 +170,8 @@ const temporizador = setInterval(function() {
    clearInterval(temporizador);
 
    //Pintar la linea base
-   textarea.value+="\n\nIndique un comando y pulse Enter:\n_______________________________________"
+   textarea.value+="\n\nIndique un comando y pulse Enter:"
+   textarea.value+="\n_______________________________________";
    textarea.scrollTop = textarea.scrollHeight;
    //Desbloquear el input
 document.getElementById("texto").removeAttribute("disabled");
@@ -152,5 +192,5 @@ function escribirinicio(){
   "Usuario : 4dm1n1str4t0r : Iniciado"]
   
   escribir(frases,12);
-  
+ 
   }

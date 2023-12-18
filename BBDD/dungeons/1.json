@@ -1,0 +1,20 @@
+[
+    {
+        "level": 1,
+        "time": "2020-11-01 13:45:00",
+        "completed": true,
+        "total_points": 1250
+    },
+    {
+        "level": 20,
+        "time": "2021-04-23 18:56:34",
+        "completed": true,
+        "total_points": 2356
+    },
+    {
+        "level": 30,
+        "time": "2021-12-09 21:23:43",
+        "completed": false,
+        "total_points": 0
+    }
+]
