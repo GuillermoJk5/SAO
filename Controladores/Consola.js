@@ -44,6 +44,11 @@ function leercomando(comando){
       }else{error();}
         break;
         case "/dungeons": 
+        if(trozos.length==2)
+        {activarImagen("n");
+        cabecera("DUNGEONS");
+        dungeons(trozos[1]);
+      }else{error();}
         break;
         default: 
         error(); 
@@ -186,7 +191,7 @@ function formatearNumero(numero) {
 
 //Metodo que pilla los jugadores de la bbdd y los muestra
 function listauser() {
-   xhttp = new XMLHttpRequest();
+  xhttp = new XMLHttpRequest();
   xhttp.open("GET", "http://localhost/SAO/Controladores/listusers.php", true);
 
   xhttp.onload = function() {
@@ -212,6 +217,51 @@ function listauser() {
   };
   xhttp.send();
 }
+
+//Metodo de las mazmorras
+function dungeons(id){
+
+  ind =  parseInt(id);
+
+  const xhr = new XMLHttpRequest();
+  
+  xhr.open('GET', `http://localhost/SAO/Controladores/userdungeons.php?id=${ind}`, true);
+  xhr.withCredentials = true;
+  
+  xhr.onload = function() {
+    if (xhr.status >= 200 && xhr.status < 400) {
+      const data = xhr.responseText;
+      
+      //Obtengo los datos en un array junto con la foto
+      arraydata=maquetardungeons(data);
+
+      escribir(arraydata);
+    
+  
+    } else {
+      console.error('Hubo un error con la solicitud:', xhr.status);
+    }
+  };
+  
+  xhr.onerror = function() {
+    console.error('Hubo un error con la solicitud');
+  };
+  
+  xhr.send();
+
+}
+
+//Metodo para maquetar la info de las mazmorras
+function maquetardungeons(data){
+data=data.replace("[","");
+data=data.replace("]","");
+data=data.replace(/{/g,"");
+data=data.replace(/}/g,"");
+arraydatos=data.split(",");
+return arraydatos;
+  
+}
+
 
 //Metodo para escribir en la pantalla
 function escribir(frases) {

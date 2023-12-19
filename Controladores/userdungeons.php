@@ -1,7 +1,7 @@
 <?php
 
 
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: null");
 // Permitir los métodos GET, POST, PUT, DELETE, OPTIONS
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 // Permitir ciertos encabezados
@@ -9,13 +9,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // Permitir que las cookies se incluyan en las solicitudes
 header("Access-Control-Allow-Credentials: true");
 
-if (!isset($_GET["id_user"]) || !is_numeric($_GET["id_user"]))
+if (!isset($_GET["id"]) || !is_numeric($_GET["id"]))
 {
     echo "invalid id user";
     exit();
 }
 
-$file = "dungeons/" . $_GET["id_user"] . ".json";
+$file = "../BBDD/dungeons/" . $_GET["id"] . ".json";
 
 if (!file_exists($file)) {
     echo "user dungeons don't exists";
