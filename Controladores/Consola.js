@@ -31,7 +31,7 @@ function leercomando(comando){
         time();
         break;
         case "/list_users":
-          activarImagen("n");
+        activarImagen("n");
         cabecera("USERS");
         listauser();
         break;
@@ -136,33 +136,30 @@ xhr.send();
 }
 
 //Metodo para maquetar el metodo de Profile
-function maquetar(data){
-
- array = data.split("\n");
- array[0]="\n";
- array.splice(8,1);
- img = array[7];
- //obtengo la url de toda la linea
- url=img.split('"');
- array[7]=url[3];
-
- return array;
-
+function maquetar(data) {
+  array = data.split("\n");
+  array[0] = "\n";
+  array.splice(8, 1);
+  img = array[7];
+  
+  // Obtengo la URL de toda la línea
+  url = img.split('"');
+  array[7] = url[3];
+  
+  return array;
 }
 
-
+//Metodo para imprimir la imagen
 function imagen(url){
-  
   img =document.getElementById("img");
   img.src=url;
- 
 }
 
+//Metodo para activar el camppo de la imagen
 function activarImagen(op) {
   textarea =document.getElementById("consola");
   img =document.getElementById("img");
   if(op=="s"){
-  
   textarea.style.width="60%";
     img.style.display = 'block';
   }
@@ -170,8 +167,6 @@ function activarImagen(op) {
     textarea.style.width="82%";
     img.style.display = 'none';
   }
-  
- 
 }
 
 //Metodo para formatear el numero de la hora
@@ -212,37 +207,35 @@ function listauser() {
 }
 
 //Metodo para escribir en la pantalla
-function escribir(frases, cantidad){
+function escribir(frases, cantidad) {
+  // Bloqueo el input
+  document.getElementById("texto").setAttribute("disabled", true);
+  textarea = document.getElementById("consola");
 
-  //Bloqueo el input
-  document.getElementById("texto").setAttribute("disabled",true);
-  textarea =document.getElementById("consola");
+  // Uso esto para saber cuantas lineas he escrito
+  let contador = 0;
 
-  //Uso esto para saber cuantas lineas he escrito
-let contador = 0;
+  const temporizador = setInterval(function() {
+      // Pinto lo mandado por parametro
+      textarea.value += frases[contador];
+      console.log(frases[contador]);
+      contador++;
+      textarea.scrollTop = textarea.scrollHeight;
 
-const temporizador = setInterval(function() {
-  //Pinto lo mandado por parametro
-  textarea.value += frases[contador]; 
-  console.log(frases[contador]);
-  contador++; 
-  textarea.scrollTop = textarea.scrollHeight;
+      // Detener el temporizador 
+      if (contador > cantidad) {
+          clearInterval(temporizador);
 
-  // Detener el temporizador 
-  if (contador > cantidad) {
-   clearInterval(temporizador);
+          // Pintar la linea base
+          textarea.value += "\n\nIndique un comando y pulse Enter:";
+          textarea.value += "\n_______________________________________";
+          textarea.scrollTop = textarea.scrollHeight;
 
-   //Pintar la linea base
-   textarea.value+="\n\nIndique un comando y pulse Enter:"
-   textarea.value+="\n_______________________________________";
-   textarea.scrollTop = textarea.scrollHeight;
-   //Desbloquear el input
-document.getElementById("texto").removeAttribute("disabled");
-document.getElementById("texto").focus();
-  }
-}, 600);
-
-
+          // Desbloquear el input
+          document.getElementById("texto").removeAttribute("disabled");
+          document.getElementById("texto").focus();
+      }
+  }, 600);
 }
 
 //Metodo que escribe al inicio de la pagina
@@ -255,5 +248,4 @@ function escribirinicio(){
   "Usuario : 4dm1n1str4t0r : Iniciado"]
   
   escribir(frases,12);
- 
   }
