@@ -17,26 +17,31 @@ function leercomando(comando){
 
     switch(trozos[0]){
         case "/clear": 
+        activarImagen("n");
         clear();
         break;
         case "/help": 
+        activarImagen("n");
         cabecera("HELP");
         help();
         break;
         case "/system_time": 
+        activarImagen("n");
         cabecera("DATE");
         time();
         break;
         case "/list_users":
+          activarImagen("n");
         cabecera("USERS");
         listauser();
         break;
         case "/profile": 
+        activarImagen("n");
         if(trozos.length==2)
-        {
+        {activarImagen("s");
         cabecera("PROFILE");
         profile(trozos[1]);
-      }
+      }else{error();}
         break;
         case "/dungeons": 
         break;
@@ -112,6 +117,7 @@ xhr.onload = function() {
     
     arraydata=maquetar(data);
     escribir(arraydata,6);
+    imagen(arraydata[7]);
 
   } else {
     console.error('Hubo un error con la solicitud:', xhr.status);
@@ -132,10 +138,32 @@ function maquetar(data){
  array[0]="\n";
  array.splice(8,1);
  img = array[7];
-
+ //obtengo la url de toda la linea
+ url=img.split('"');
+ array[7]=url[3];
 
  return array;
 
+}
+
+
+function imagen(url){
+  
+  img =document.getElementById("img");
+  img.src=url;
+ 
+}
+
+function activarImagen(op) {
+  var  img =document.getElementById("img");
+  if(op=="s"){
+    img.style.display = 'block';
+  }
+  else{ 
+    img.style.display = 'none';
+  }
+  
+ 
 }
 
 //Metodo para formatear el numero de la hora
