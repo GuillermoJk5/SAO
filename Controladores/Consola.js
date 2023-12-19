@@ -68,15 +68,16 @@ function help(){
    
     frases = ["\n\n/clear : limpia la consola\n\n","/system_time : Muestra la fecha del juego\n\n",
     "/list_users : Lista a los jugadores\n\n",
-    "/profile [id_user]: Muestra el perfil del jugador indicado en el parametro"];
+    "/profile [id_user]: Muestra el perfil del jugador indicado en el parametro\n\n",
+    "/dungeons [id_user]: Muestra las mazmorras que ha completado el jugador indicado en el parametro"];
 
-    escribir(frases,3);
+    escribir(frases);
 }
 
 //Metodo que alerta de un error
 function error(){
   frase=["\n\nError : Comando desconocido"]
-  escribir(frase,0);
+  escribir(frase);
 }
 
 //Metodo que escribe la fecha y hora
@@ -99,7 +100,7 @@ function time(){
    horaActual = ["\n\nFecha actual del juego : "
    +dia+"/"+mes+"/"+año+" "+hora+":"+minutos+":"+segundos];
 
-   escribir(horaActual,0);
+   escribir(horaActual);
 }
 
 // Metodo para el metodo profile
@@ -116,12 +117,18 @@ xhr.onload = function() {
   if (xhr.status >= 200 && xhr.status < 400) {
     const data = xhr.responseText;
     
+    //Obtengo los datos en un array junto con la foto
     arraydata=maquetar(data);
-    escribir(arraydata,6);
+    
+    //Pinto la foto
     if(arraydata[7]==null){
       arraydata[7]="http://localhost/SAO/img/foto.png"
     }
     imagen(arraydata[7]);
+    
+    //Borro la foto para mostrar las lineas de texto
+    arraydata.splice(7,1);
+    escribir(arraydata);
 
   } else {
     console.error('Hubo un error con la solicitud:', xhr.status);
@@ -198,7 +205,7 @@ function listauser() {
               jugadores.push(player);
           }
 
-          escribir(jugadores, jugadores.length - 1);
+          escribir(jugadores);
       } else {
           console.log("Ha ocurrido un problema:", this.status, this.statusText);
       }
@@ -207,7 +214,7 @@ function listauser() {
 }
 
 //Metodo para escribir en la pantalla
-function escribir(frases, cantidad) {
+function escribir(frases) {
   // Bloqueo el input
   document.getElementById("texto").setAttribute("disabled", true);
   textarea = document.getElementById("consola");
@@ -223,7 +230,7 @@ function escribir(frases, cantidad) {
       textarea.scrollTop = textarea.scrollHeight;
 
       // Detener el temporizador 
-      if (contador > cantidad) {
+      if (contador > frases.length-1) {
           clearInterval(temporizador);
 
           // Pintar la linea base
@@ -241,11 +248,20 @@ function escribir(frases, cantidad) {
 //Metodo que escribe al inicio de la pagina
 function escribirinicio(){
 
-  frases=["Ingrese Contraseña:\n","*******\n","Contraseña Aceptada\n",
-  "Cargando Archivos.......\n","0%\n","27%\n","65%\n","Archivos Cargados\n"
-  ,"Conectando con los servidores...","","\n"+
-  "Conexion Exitosa\n","Concediendo permisos de Administrador....\n",
+  frases=["Ingrese Contraseña:\n",
+  "*******\n",
+  "Contraseña Aceptada\n",
+  "Cargando Archivos.......\n",
+  "0%\n",
+  "27%\n",
+  "65%\n",
+  "Archivos Cargados\n",
+  "Conectando con los servidores...",
+  "...",
+  "\n",
+  "Conexion Exitosa\n",
+  "Concediendo permisos de Administrador....\n",
   "Usuario : 4dm1n1str4t0r : Iniciado"]
   
-  escribir(frases,12);
+  escribir(frases);
   }
