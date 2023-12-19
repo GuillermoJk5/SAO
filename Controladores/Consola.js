@@ -104,6 +104,7 @@ function time(){
 
 // Metodo para el metodo profile
 function profile(id){
+  
 ind =  parseInt(id);
 
 const xhr = new XMLHttpRequest();
@@ -117,6 +118,9 @@ xhr.onload = function() {
     
     arraydata=maquetar(data);
     escribir(arraydata,6);
+    if(arraydata[7]==null){
+      arraydata[7]="http://localhost/SAO/img/foto.png"
+    }
     imagen(arraydata[7]);
 
   } else {
@@ -155,11 +159,15 @@ function imagen(url){
 }
 
 function activarImagen(op) {
-  var  img =document.getElementById("img");
+  textarea =document.getElementById("consola");
+  img =document.getElementById("img");
   if(op=="s"){
+  
+  textarea.style.width="60%";
     img.style.display = 'block';
   }
   else{ 
+    textarea.style.width="82%";
     img.style.display = 'none';
   }
   

@@ -19,12 +19,20 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
+  .interior{
+    display: flex;
+    flex-direction: row;
+    width: 1170px;
+
+
+  }
+
 img{
-  height: auto;
-  width: 260px;
+  margin-top: 174px;
+  height: 208px;
   display: block;
-  margin-right: 20px;
-  margin-top: 122px;
+  margin-left: 10px;
+  width: 258px;
 }
 
   .lateral{
@@ -62,7 +70,7 @@ img{
   }
   textarea  {
     overflow-y: hidden;
-    width: 100%;
+    width: 82%;
     height: 450px;
     color: white;
     padding: 10px;
