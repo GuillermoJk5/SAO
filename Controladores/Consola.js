@@ -32,8 +32,11 @@ function leercomando(comando){
         listauser();
         break;
         case "/profile": 
+        if(trozos.length==2)
+        {
         cabecera("PROFILE");
         profile(trozos[1]);
+      }
         break;
         case "/dungeons": 
         break;
@@ -94,21 +97,45 @@ function time(){
    escribir(horaActual,0);
 }
 
+// Metodo para el metodo profile
 function profile(id){
+ind =  parseInt(id);
 
-  fetch(`localhost/SAO/Controladores/profile.php?id_user=${id}`)
-  .then(response => {
-    if (!response.ok) {
-      a=["Error"];
-      escribir(a,0);
-    }
-    return response.json(); 
-  })
-  .then(datos =>{
+const xhr = new XMLHttpRequest();
 
-    console.log(datos);
+xhr.open('GET', `http://localhost/SAO/Controladores/profile.php?id=${ind}`, true);
+xhr.withCredentials = true;
 
-  })
+xhr.onload = function() {
+  if (xhr.status >= 200 && xhr.status < 400) {
+    const data = xhr.responseText;
+    
+    arraydata=maquetar(data);
+    escribir(arraydata,6);
+
+  } else {
+    console.error('Hubo un error con la solicitud:', xhr.status);
+  }
+};
+
+xhr.onerror = function() {
+  console.error('Hubo un error con la solicitud');
+};
+
+xhr.send();
+}
+
+//Metodo para maquetar el metodo de Profile
+function maquetar(data){
+
+ array = data.split("\n");
+ array[0]="\n";
+ array.splice(8,1);
+ img = array[7];
+
+
+ return array;
+
 }
 
 //Metodo para formatear el numero de la hora
