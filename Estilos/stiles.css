@@ -72,10 +72,6 @@ img{
     width: 100%;
     padding: 5px;
     border: 0;
-    /* margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; */
     background-color: rgba(41, 219, 196, 0.2);
     font-family: 'SAO';
     font-size: 20px;
@@ -83,7 +79,7 @@ img{
     
   }
   textarea  {
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
     width: 82%;
     height: 450px;
     color: white;
@@ -96,6 +92,13 @@ img{
     font-family: 'SAO';
     resize: none;
     font-size: 20px;
+
+    /* scrollbar-width: none; /* Firefox 
+  -ms-overflow-style: none; */
+  }
+
+  textarea::-webkit-scrollbar {
+    width: 0; /* Ancho cero para ocultar la barra */
   }
   
   body {

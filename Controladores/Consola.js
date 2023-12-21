@@ -137,6 +137,7 @@ xhr.onload = function() {
 
   } else {
     console.error('Hubo un error con la solicitud:', xhr.status);
+    error();
   }
 };
 
